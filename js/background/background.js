@@ -226,10 +226,6 @@
 			if (isDevMode)
 				console.log('Event: ' + [category, action, label].join(', '));
 			
-			ga('send', 'event', category, action, label, {
-				'dimension1': UUID,
-				'dimension2': version
-			});
 		});
 	}
 	
@@ -300,18 +296,6 @@
 	
 	
 	getUUID(function(UUID) {
-		ga('create', isDevMode ? 'UA-5025776-14' : 'UA-5025776-15', {
-			'storage': 'none',
-			'clientId': UUID
-		});
-		
-		/**
-		 * Fix
-		 * Read more: https://code.google.com/p/analytics-issues/issues/detail?id=312
-		 */
-		ga('set', 'checkProtocolTask', function() {});
-		
-		
 		var lastVersion = localStorage['version'];
 		if (lastVersion && lastVersion !== version)
 			app.event('Extension', 'Updated', 'To '+version+' from '+lastVersion);
